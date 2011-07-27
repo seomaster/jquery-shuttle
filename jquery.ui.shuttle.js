@@ -60,12 +60,24 @@
 
             return leftButtonContainer;
         },
-        _Move: { all: 'li.ui-selectee', selected: 'li.ui-selected' },
+        _updateScroll: function(list, elem) {
+            if(elem.offset().top > list.innerHeight()) //element is below the viewport
+                list.scrollTop(list.scrollTop() + elem.offset().top - list.innerHeight() + elem.outerHeight());
+            else if(elem.offset().top < 0) //element is above the viewport
+                list.scrollTop(list.scrollTop() + elem.offset().top);
+        },
+        _Move: {
+            all: 'li.ui-selectee',
+            selected: 'li.ui-selected'
+        },
         _move : function(fromList, toList, selector) {
+            var widget = this;
+            toList = $(toList);
             $(fromList).find(selector).each(
                 function() {
-                    $(toList).append($(this));
-                    $(toList).data('shuttle').select.append($(this).data('shuttle').option);
+                    toList.append($(this));
+                    toList.data('shuttle').select.append($(this).data('shuttle').option);
+                    widget._updateScroll(toList, $(this));
                 });
         },
         _createCopyAllButton: function() {
@@ -122,6 +134,7 @@
                 widget.rightList.prepend(selectedItems);
                 $(selectedItems.get().reverse()).each(function() {
                     widget.rightList.data('shuttle').select.prepend($(this).data('shuttle').option);
+                    widget._updateScroll(widget.rightList, $(this));
                 });
             });
         }
@@ -135,6 +148,7 @@
                         if (previous.data('shuttle') && !previous.hasClass('ui-selected')) {
                             $(this).insertBefore(previous);
                             $(this).data('shuttle').option.insertBefore(previous.data('shuttle').option);
+                            widget._updateScroll(widget.rightList, $(this));
                         }
                     });
             });
@@ -149,6 +163,7 @@
                         if (next.data('shuttle') && !next.hasClass('ui-selected')) {
                             $(this).insertAfter(next);
                             $(this).data('shuttle').option.insertAfter(next.data('shuttle').option);
+                            widget._updateScroll(widget.rightList, $(this));
                         }
                     });
             });
@@ -162,6 +177,7 @@
                 widget.rightList.append(selectedItems);
                 selectedItems.each(function() {
                     widget.rightList.data('shuttle').select.append($(this).data('shuttle').option);
+                    widget._updateScroll(widget.rightList, $(this));
                 });
 
             });
@@ -182,4 +198,5 @@
             }
         }
     });
-})(jQuery);
+})
+    (jQuery);
