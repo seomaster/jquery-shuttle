@@ -1,0 +1,33 @@
+#shuttle select {
+    display: none;
+}
+
+#shuttle .ui-selecting {
+    background: #FECA40;
+}
+
+#shuttle .ui-selected {
+    background: #F39814;
+    color: white;
+}
+
+#shuttle ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 10em;
+    height: 10em;
+    overflow-y: auto;
+    border: 1px solid black;
+}
+
+.shuttle-button-container {
+    margin: 2em;
+}
+
+#shuttle ul li {
+    margin: 3px;
+    padding: 0.4em;
+    font-size: 1.4em;
+    height: 18px;
+}

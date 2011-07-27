@@ -1,0 +1,40 @@
+<html>
+<head>
+    <title></title>
+    <meta content="">
+
+    <link rel="stylesheet" href="../jquery.ui.shuttle.css"/>
+    <link rel="stylesheet" href="examples.css"/>
+    <script type="text/javascript" src="js/jquery.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
+    <script type="text/javascript" src="../jquery.ui.shuttle.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#shuttle').shuttle();
+        });
+
+    </script>
+</head>
+<body>
+<div id="shuttle">
+    <select name="available" size="5">
+        <option value="1" data-class="cross">item 1</option>
+        <option value="2" data-class="tick">item 2</option>
+        <option value="3" data-class="cross">item 3</option>
+        <option value="4" data-class="tick">item 4</option>
+        <option value="5" data-class="cross">item 5</option>
+        <option value="6" data-class="cross">item 6</option>
+        <option value="7" data-class="cross">item 7</option>
+    </select>
+    <select name="selected" size="5">
+        <option value="8" data-class="cross">item 8</option>
+        <option value="9" data-class="cross">item 9</option>
+        <option value="10" data-class="cross">item 10</option>
+    </select>
+</div>
+
+<div id="progressbar"></div>
+<div id="progressbar2"></div>
+
+</body>
+</html>
