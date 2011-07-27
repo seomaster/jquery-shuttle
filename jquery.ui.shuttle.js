@@ -19,14 +19,15 @@
         },
         _createShuttle: function() {
             var shuttle = $('<div class="shuttle"></div>');
+            ;
 
             this.leftList = this._createListBox(this.leftSelect, 'shuttle-left-list');
-            shuttle.append(this.leftList);
+            shuttle.append($('<div class=\"shuttle-list-container shuttle-left-list-container\"></div>').append(this.leftList));
 
             shuttle.append(this._createLeftButtonContainer());
 
             this.rightList = this._createListBox(this.rightSelect, 'shuttle-right-list');
-            shuttle.append(this.rightList);
+            shuttle.append($('<div class=\"shuttle-list-container shuttle-right-list-container\"></div>').append(this.rightList));
 
             shuttle.append(this._createRightButtonContainer());
 
@@ -40,10 +41,12 @@
         _createListBox: function(select, clazz) {
             var listbox = $('<ul class=\"' + clazz + '\"></ul>');
             var widget = this;
+
             $(select).find('option').each(function() {
                 listbox.append(widget._createListItem($(this)));
                 listbox.data('shuttle', {select: $(select)});
             });
+
             return listbox.selectable({selected: function(evt, ui) {
                     var unselectedList = (this == widget.rightList.get(0)) ? widget.leftList : widget.rightList;
                     unselectedList.find('.ui-selected').removeClass('ui-selected');
@@ -61,10 +64,11 @@
             return leftButtonContainer;
         },
         _updateScroll: function(list, elem) {
-            if(elem.offset().top > list.innerHeight()) //element is below the viewport
-                list.scrollTop(list.scrollTop() + elem.offset().top - list.innerHeight() + elem.outerHeight());
+            var container = list.parent();
+            if(elem.offset().top > container.innerHeight()) //element is below the viewport
+                container.scrollTop(container.scrollTop() + elem.offset().top - container.innerHeight() + elem.outerHeight());
             else if(elem.offset().top < 0) //element is above the viewport
-                list.scrollTop(list.scrollTop() + elem.offset().top);
+                container.scrollTop(container.scrollTop() + elem.offset().top);
         },
         _Move: {
             all: 'li.ui-selectee',

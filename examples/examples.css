@@ -15,9 +15,11 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
+}
+
+.shuttle-list-container {
     width: 10em;
     height: 10em;
-    overflow-y: auto;
     border: 1px solid black;
 }
 
@@ -30,4 +32,19 @@
     padding: 0.4em;
     font-size: 1.4em;
     height: 18px;
+}
+
+.shuttle-icon {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    margin-right: 0.5em;
+}
+
+.cross {
+    background-image: url('imgs/cross.png');
+}
+
+.tick {
+    background-image: url('imgs/tick.png');
 }

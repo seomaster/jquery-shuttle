@@ -11,3 +11,14 @@
 .shuttle-icon {
     display: inline-block;
 }
+
+.shuttle-list-container {
+    overflow-y: auto;
+    display: inline-block;
+    float: left;
+}
+
+.shuttle ul {
+    width: 100%;
+    cursor: default;
+}
