@@ -1,0 +1,13 @@
+.ui-selectable {
+    list-style-type: none;
+    float: left;
+    display: inline-block;
+}
+
+.shuttle-button-container {
+    display: inline-block;
+    float: left;
+}
+.shuttle-icon {
+    display: inline-block;
+}
