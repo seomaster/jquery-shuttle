@@ -10,7 +10,18 @@
     <script type="text/javascript" src="../jquery.ui.shuttle.js"></script>
     <script type="text/javascript">
         $(function() {
-            $('#shuttle').shuttle();
+            $('#shuttle').shuttle({
+                buttonText: {
+                    copyAll: 'Copiar Todos',
+                    copy: 'Copiar',
+                    remove: 'Remover',
+                    removeAll: 'Remover Todos',
+                    first: 'Primeiro',
+                    up: 'Cima',
+                    down: 'Baixo',
+                    last: "Último"
+                }
+            });
         });
     </script>
 </head>

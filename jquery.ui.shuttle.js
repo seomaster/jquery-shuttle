@@ -11,38 +11,25 @@
                 className: 'shuttle-right-list',
                 containerClassName: 'shuttle-list-container shuttle-right-list-container'
             },
-            copyAllButton: {
-                text: 'Copy All',
-                className: 'shuttle-button-copy-all'
+            defaultButtonClass: 'btn',
+            buttonText: {
+                copyAll: 'Copy All',
+                copy: 'Copy',
+                remove: 'Remove',
+                removeAll: 'Remove All',
+                first: 'First',
+                up: 'Up',
+                down: 'Down',
+                last: 'Last'
             },
-            copyButton: {
-                text: 'Copy',
-                className: 'shuttle-button-copy'
-            },
-            removeButton: {
-                text: 'Remove',
-                className: 'shuttle-button-remove'
-            },
-            removeAllButton: {
-                text: 'Remove All',
-                className: 'button-remove-all'
-            },
-            firstButton: {
-                text: 'First',
-                className: 'shuttle-button-first'
-            },
-            upButton: {
-                text: 'Up',
-                className: 'shuttle-button-up'
-            },
-            downButton: {
-                text: 'Down',
-                className: 'shuttle-button-down'
-            },
-            lastButton: {
-                text: 'Last',
-                className: 'shuttle-button-last'
-            }
+            copyAllButton: {},
+            copyButton: {},
+            removeAllButton: {},
+            removeButton: {},
+            firstButton: {},
+            upButton: {},
+            lastButton: {},
+            downButton: {}
         },
         _create: function(options) {
 
@@ -129,9 +116,8 @@
         },
         _createCopyAllButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.copyAllButton.className)
-                .text(this.options.copyAllButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.copyAllButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.copyAll)
                 .click(function() {
                     widget._move(widget.leftList, widget.rightList, widget._Move.all);
                 });
@@ -139,9 +125,8 @@
         ,
         _createCopySelectedButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.copyButton.className)
-                .text(this.options.copyButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.copyButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.copy)
                 .click(function() {
                     widget._move(widget.leftList, widget.rightList, widget._Move.selected);
                 });
@@ -149,9 +134,8 @@
         ,
         _createRemoveSelectedButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.removeButton.className)
-                .text(this.options.removeButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.removeButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.remove)
                 .click(function() {
                     widget._move(widget.rightList, widget.leftList, widget._Move.selected);
                 });
@@ -159,9 +143,8 @@
         ,
         _createRemoveAllButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.removeAllButton.className)
-                .text(this.options.removeAllButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.removeAllButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.removeAll)
                 .click(function() {
                     widget._move(widget.rightList, widget.leftList, widget._Move.all);
                 });
@@ -180,9 +163,8 @@
 
         _createFirstButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.firstButton.className)
-                .text(this.options.firstButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.firstButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.first)
                 .click(function() {
                     var selectedItems = widget.rightList.find('.ui-selected');
                     widget.rightList.prepend(selectedItems);
@@ -194,9 +176,8 @@
         },
         _createUpButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.upButton.className)
-                .text(this.options.upButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.upButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.up)
                 .click(function() {
                     widget.rightList.find('.ui-selected').each(
                         function() {
@@ -212,9 +193,8 @@
         ,
         _createDownButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.downButton.className)
-                .text(this.options.downButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.downButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.down)
                 .click(function() {
                     $(widget.rightList.find('.ui-selected').get().reverse()).each(
                         function() {
@@ -231,9 +211,8 @@
         ,
         _createLastButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.lastButton.className)
-                .text(this.options.lastButton.text)
-                .button()
+            return $('<div>').attr('class', this.options.lastButton.className || this.options.defaultButtonClass)
+                .text(this.options.buttonText.last)
                 .click(function() {
                     var selectedItems = widget.rightList.find('.ui-selected');
                     widget.rightList.append(selectedItems);
