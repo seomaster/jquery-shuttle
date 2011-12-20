@@ -11,7 +11,7 @@
                 className: 'shuttle-right-list',
                 containerClassName: 'shuttle-list-container shuttle-right-list-container'
             },
-            defaultButtonClass: 'btn',
+            defaultButtonClass: 'shuttle-button',
             buttonText: {
                 copyAll: 'Copy All',
                 copy: 'Copy',
