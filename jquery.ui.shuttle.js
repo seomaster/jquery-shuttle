@@ -2,16 +2,16 @@
 
     $.widget("ui.shuttle", {
         options: {
-            shuttleContainerClassName: 'shuttle',
+            shuttleContainerClassName: '',
             leftList: {
-                className: 'shuttle-left-list',
-                containerClassName: 'shuttle-list-container shuttle-left-list-container'
+                className: '',
+                containerClassName: ''
             },
             rightList: {
-                className: 'shuttle-right-list',
-                containerClassName: 'shuttle-list-container shuttle-right-list-container'
+                className: '',
+                containerClassName: ''
             },
-            defaultButtonClass: 'shuttle-button',
+            buttonClass: '',
             buttonText: {
                 copyAll: 'Copy All',
                 copy: 'Copy',
@@ -22,14 +22,8 @@
                 down: 'Down',
                 last: 'Last'
             },
-            copyAllButton: {},
-            copyButton: {},
-            removeAllButton: {},
-            removeButton: {},
-            firstButton: {},
-            upButton: {},
-            lastButton: {},
-            downButton: {}
+            leftButtonContainerClass: '',
+            rightButtonContainerClass: ''
         },
         _create: function(options) {
 
@@ -49,27 +43,45 @@
             return this;
         },
         _createShuttle: function() {
-            var shuttle = $('<div class="' + this.options.shuttleContainerClassName + '"></div>');
+            var shuttle = $('<div>').attr('class', 'shuttle').addClass(this.options.shuttleContainerClassName);
 
-            this.leftList = this._createListBox(this.leftSelect, this.options.leftList.className);
-            shuttle.append($('<div class=\"' + this.options.leftList.containerClassName + '\"></div>').append(this.leftList));
+            this.leftList = this._createListBox(this.leftSelect)
+                .attr('class', 'shuttle-list shuttle-left-list')
+                .addClass(this.options.leftList.className);
+
+            shuttle.append($('<div>')
+                .attr('class', 'shuttle-list-container shuttle-left-list-container')
+                .addClass(this.options.leftList.containerClassName)
+                .append(this.leftList));
 
             shuttle.append(this._createLeftButtonContainer());
 
-            this.rightList = this._createListBox(this.rightSelect, this.options.rightList.className);
-            shuttle.append($('<div class=\"' + this.options.rightList.containerClassName + '\"></div>').append(this.rightList));
+            this.rightList = this._createListBox(this.rightSelect)
+                .attr('class', 'shuttle-list shuttle-right-list')
+                .addClass(this.options.rightList.className);
+
+            shuttle.append($('<div>')
+                .attr('class', 'shuttle-list-container shuttle-right-list-container')
+                .addClass(this.options.rightList.containerClassName)
+                .append(this.rightList));
 
             shuttle.append(this._createRightButtonContainer());
 
             return shuttle;
         },
         _createListItem: function(option) {
-            var listItem = $('<li class=\"ui-widget-content\"><span class=\"shuttle-icon ' + option.data('class') + '\"></span>' + option.text() + '</li>');
+            var listItem = $('<li>').attr('class', 'ui-widget-content')
+                .append($('<span>')
+                            .attr('class','shuttle-icon')
+                            .attr('style','background-image: url('+option.data('image')+');')
+                            .text(option.text())
+                )
+
             listItem.data('shuttle', {option: option});
             return listItem;
         },
-        _createListBox: function(select, clazz) {
-            var listbox = $('<ul class=\"' + clazz + '\"></ul>');
+        _createListBox: function(select) {
+            var listbox = $('<ul>');
             var widget = this;
 
             $(select).find('option').each(function() {
@@ -84,7 +96,9 @@
             );
         },
         _createLeftButtonContainer: function() {
-            var leftButtonContainer = $('<div class="shuttle-button-container shuttle-left-button-container"></div>');
+            var leftButtonContainer = $('<div>')
+                .attr('class', 'shuttle-button-container shuttle-left-button-container')
+                .addClass(this.options.leftButtonContainerClass);
 
             leftButtonContainer.append(this._createCopyAllButton());
             leftButtonContainer.append(this._createCopySelectedButton());
@@ -116,7 +130,8 @@
         },
         _createCopyAllButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.copyAllButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-copy-all-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.copyAll)
                 .click(function() {
                     widget._move(widget.leftList, widget.rightList, widget._Move.all);
@@ -125,7 +140,8 @@
         ,
         _createCopySelectedButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.copyButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-copy-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.copy)
                 .click(function() {
                     widget._move(widget.leftList, widget.rightList, widget._Move.selected);
@@ -134,7 +150,8 @@
         ,
         _createRemoveSelectedButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.removeButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class','shuttle-button shuttle-remove-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.remove)
                 .click(function() {
                     widget._move(widget.rightList, widget.leftList, widget._Move.selected);
@@ -143,7 +160,8 @@
         ,
         _createRemoveAllButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.removeAllButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-remove-all-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.removeAll)
                 .click(function() {
                     widget._move(widget.rightList, widget.leftList, widget._Move.all);
@@ -151,7 +169,9 @@
         }
         ,
         _createRightButtonContainer: function() {
-            var rightButtonContainer = $('<div class="shuttle-button-container shuttle-right-button-container"></div>');
+            var rightButtonContainer = $('<div>')
+                .attr('class', 'shuttle-button-container shuttle-right-button-container')
+                .addClass(this.options.rightButtonContainerClass);
 
             rightButtonContainer.append(this._createFirstButton());
             rightButtonContainer.append(this._createUpButton());
@@ -163,7 +183,8 @@
 
         _createFirstButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.firstButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-first-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.first)
                 .click(function() {
                     var selectedItems = widget.rightList.find('.ui-selected');
@@ -176,7 +197,8 @@
         },
         _createUpButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.upButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-up-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.up)
                 .click(function() {
                     widget.rightList.find('.ui-selected').each(
@@ -193,7 +215,8 @@
         ,
         _createDownButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.downButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-down-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.down)
                 .click(function() {
                     $(widget.rightList.find('.ui-selected').get().reverse()).each(
@@ -211,7 +234,8 @@
         ,
         _createLastButton: function() {
             var widget = this;
-            return $('<div>').attr('class', this.options.lastButton.className || this.options.defaultButtonClass)
+            return $('<div>').attr('class', 'shuttle-button shuttle-last-button')
+                .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.last)
                 .click(function() {
                     var selectedItems = widget.rightList.find('.ui-selected');
