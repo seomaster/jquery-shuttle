@@ -70,14 +70,14 @@
             return shuttle;
         },
         _createListItem: function(option) {
-            var listItem = $('<li>').attr('class', 'ui-widget-content')
-                .append($('<span>')
-                            .attr('class','shuttle-icon')
-                            .attr('style','background-image: url('+option.data('image')+');')
-                            .text(option.text())
-                )
+            var listItem = $('<li>').attr('class', 'ui-widget-content').text(option.text())
+                .prepend($('<span>')
+                .attr('class', 'shuttle-icon')
+                .attr('style', 'background-image: url(' + option.data('icon') + ');')
+            );
 
             listItem.data('shuttle', {option: option});
+
             return listItem;
         },
         _createListBox: function(select) {
@@ -150,7 +150,7 @@
         ,
         _createRemoveSelectedButton: function() {
             var widget = this;
-            return $('<div>').attr('class','shuttle-button shuttle-remove-button')
+            return $('<div>').attr('class', 'shuttle-button shuttle-remove-button')
                 .addClass(this.options.buttonClass)
                 .text(this.options.buttonText.remove)
                 .click(function() {
